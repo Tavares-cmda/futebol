@@ -18,42 +18,59 @@ function lanceAleatorio() {
   return lances[index];
 }
 
+// Função de suspense (3..2..1..)
+function mostrarComSuspense(func) {
+  const descricao = document.getElementById("descricaoLance");
+  descricao.classList.add("suspense");
+  descricao.innerText = "Revisando lance... 3";
+  setTimeout(() => { descricao.innerText = "Revisando lance... 2"; }, 500);
+  setTimeout(() => { descricao.innerText = "Revisando lance... 1"; }, 1000);
+  setTimeout(() => {
+    descricao.classList.remove("suspense");
+    func();
+  }, 1500);
+}
+
 // Sorteia lance sem decisão
 function novoLance() {
-  const lance = lanceAleatorio();
-  document.getElementById("descricaoLance").innerText = "Lance: " + lance;
+  mostrarComSuspense(() => {
+    const lance = lanceAleatorio();
+    document.getElementById("descricaoLance").innerText = "Lance: " + lance;
+  });
 }
 
 // Decisão final do VAR
 function decisao(texto, detalhe) {
-  // Mostra um lance aleatório automaticamente
-  const lance = lanceAleatorio();
-  document.getElementById("descricaoLance").innerText = "Lance: " + lance;
+  mostrarComSuspense(() => {
+    const lance = lanceAleatorio();
+    const descricao = document.getElementById("descricaoLance");
+    descricao.innerText = "Lance: " + lance;
 
-  // Atualiza resultado final com animação
-  const resultado = document.getElementById("resultadoFinal");
-  resultado.innerText = texto;
-  resultado.classList.remove("show");
-  void resultado.offsetWidth; // truque p/ reiniciar animação
-  resultado.classList.add("show");
+    // Atualiza resultado final com animação
+    const resultado = document.getElementById("resultadoFinal");
+    resultado.innerText = texto;
+    resultado.classList.remove("show");
+    void resultado.offsetWidth; // reinicia animação
+    resultado.classList.add("show");
 
-  // Toca apito
-  document.getElementById("apito").play();
+    // Toca apito
+    document.getElementById("apito").play();
 
-  // Adiciona ao histórico
-  const historico = document.getElementById("listaHistorico");
-  const item = document.createElement("li");
-  const data = new Date().toLocaleTimeString();
-  item.textContent = `[${data}] ${texto} → Lance: ${lance} | Detalhe: ${detalhe}`;
-  historico.prepend(item);
+    // Adiciona ao histórico
+    const historico = document.getElementById("listaHistorico");
+    const item = document.createElement("li");
+    const data = new Date().toLocaleTimeString();
+    item.textContent = `[${data}] ${texto} → Lance: ${lance} | Detalhe: ${detalhe}`;
+    historico.prepend(item);
 
-  // Reinicia replay automaticamente
-  const video = document.getElementById("videoReplay");
-  video.currentTime = 0;
-  video.play();
+    // Reinicia replay automaticamente
+    const video = document.getElementById("videoReplay");
+    video.currentTime = 0;
+    video.play();
+  });
 }
 
-// Quando a página carregar, já mostra um lance inicial
+// Mostra um lance inicial ao carregar a página
 window.onload = () => {
   novoLance();
 };
