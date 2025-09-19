@@ -1,54 +1,131 @@
-// Lista de lances possíveis
-const lances = [
-  "Possível impedimento no ataque",
-  "Checagem de mão na bola dentro da área",
-  "Revisão de possível pênalti",
-  "Entrada dura – possível cartão vermelho",
-  "Disputa de bola considerada perigosa",
-  "Gol duvidoso em posição legal",
-  "Empurrão dentro da grande área",
-  "Verificação de gol após toque de mão",
-  "Jogador em posição irregular recebendo a bola",
-  "Contato leve avaliado pelo árbitro"
-];
-
-// Função para pegar lance aleatório
-function lanceAleatorio() {
-  const index = Math.floor(Math.random() * lances.length);
-  return lances[index];
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #004d00, #009933);
+  color: #fff;
+  text-align: center;
 }
 
-// Sorteia lance sem decisão
-function novoLance() {
-  const lance = lanceAleatorio();
-  document.getElementById("descricaoLance").innerText = "Lance: " + lance;
+header {
+  background: #002200;
+  padding: 20px;
+  font-size: 26px;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
-// Decisão final do VAR
-function decisao(texto, detalhe) {
-  // Mostra um lance aleatório automaticamente
-  const lance = lanceAleatorio();
-  document.getElementById("descricaoLance").innerText = "Lance: " + lance;
+main {
+  padding: 20px;
+}
 
-  // Atualiza resultado final com animação
-  const resultado = document.getElementById("resultadoFinal");
-  resultado.innerText = texto;
-  resultado.classList.remove("show");
-  void resultado.offsetWidth; // truque p/ reiniciar animação
-  resultado.classList.add("show");
+/* Placar */
+.placar {
+  background: rgba(0,0,0,0.4);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.placar h2 {
+  margin: 0;
+}
+.placar .times {
+  font-size: 22px;
+  margin-top: 10px;
+}
 
-  // Toca apito
-  document.getElementById("apito").play();
+/* Replay */
+.replay video {
+  border: 4px solid white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 15px black;
+}
+#descricaoLance {
+  font-style: italic;
+}
 
-  // Adiciona ao histórico
-  const historico = document.getElementById("listaHistorico");
-  const item = document.createElement("li");
-  const data = new Date().toLocaleTimeString();
-  item.textContent = `[${data}] ${texto} → Lance: ${lance} | Detalhe: ${detalhe}`;
-  historico.prepend(item);
+/* Ações */
+.acoes {
+  margin: 20px 0;
+}
+.acoes button {
+  margin: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #ffcc00;
+  color: #000;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.3s;
+}
+.acoes button:hover {
+  background: #ffaa00;
+  transform: scale(1.05);
+}
 
-  // Reinicia replay automaticamente
-  const video = document.getElementById("videoReplay");
-  video.currentTime = 0;
-  video.play();
+/* Resultado */
+.resultado {
+  margin: 25px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.1);
+  font-size: 20px;
+  font-weight: bold;
+  border: 2px solid white;
+  width: 70%;
+  position: relative;
+}
+.resultado.show {
+  animation: destaque 1s ease-in-out;
+}
+@keyframes destaque {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Estatísticas */
+.estatisticas {
+  margin-top: 30px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  padding: 15px;
+  text-align: left;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.estatisticas ul {
+  list-style: none;
+  padding: 0;
+}
+.estatisticas li {
+  margin: 8px 0;
+}
+
+/* Histórico */
+.historico {
+  margin-top: 30px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  padding: 15px;
+}
+.historico ul {
+  list-style: none;
+  padding: 0;
+}
+.historico li {
+  margin: 5px 0;
+  padding: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 5px;
+}
+
+footer {
+  margin-top: 40px;
+  background: #002200;
+  padding: 15px;
+  font-size: 14px;
 }
