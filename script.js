@@ -1,24 +1,18 @@
-// Lista de lances possíveis
+// Lista de lances com vídeo correspondente
 const lances = [
-  "Possível impedimento no ataque",
-  "Checagem de mão na bola dentro da área",
-  "Revisão de possível pênalti",
-  "Entrada dura – possível cartão vermelho",
-  "Disputa de bola considerada perigosa",
-  "Gol duvidoso em posição legal",
-  "Empurrão dentro da grande área",
-  "Verificação de gol após toque de mão",
-  "Jogador em posição irregular recebendo a bola",
-  "Contato leve avaliado pelo árbitro"
+  { descricao: "Possível impedimento no ataque", video: "https://www.youtube.com/embed/ID1?rel=0&showinfo=0" },
+  { descricao: "Checagem de mão na bola dentro da área", video: "https://www.youtube.com/embed/ID2?rel=0&showinfo=0" },
+  { descricao: "Revisão de possível pênalti", video: "https://www.youtube.com/embed/ID3?rel=0&showinfo=0" },
+  { descricao: "Entrada dura – possível cartão vermelho", video: "https://www.youtube.com/embed/ID4?rel=0&showinfo=0" },
+  { descricao: "Disputa de bola considerada perigosa", video: "https://www.youtube.com/embed/ID5?rel=0&showinfo=0" },
+  { descricao: "Gol duvidoso em posição legal", video: "https://www.youtube.com/embed/ID6?rel=0&showinfo=0" },
+  { descricao: "Empurrão dentro da grande área", video: "https://www.youtube.com/embed/ID7?rel=0&showinfo=0" },
+  { descricao: "Verificação de gol após toque de mão", video: "https://www.youtube.com/embed/ID8?rel=0&showinfo=0" },
+  { descricao: "Jogador em posição irregular recebendo a bola", video: "https://www.youtube.com/embed/ID9?rel=0&showinfo=0" },
+  { descricao: "Contato leve avaliado pelo árbitro", video: "https://www.youtube.com/embed/ID10?rel=0&showinfo=0" }
 ];
 
-// Função para pegar lance aleatório
-function lanceAleatorio() {
-  const index = Math.floor(Math.random() * lances.length);
-  return lances[index];
-}
-
-// Função de suspense realista com som
+// Função de suspense realista
 function mostrarComSuspense(func) {
   const descricao = document.getElementById("descricaoLance");
   const beep = document.getElementById("somBeep");
@@ -34,46 +28,42 @@ function mostrarComSuspense(func) {
   }, 1500);
 }
 
-// Sorteia lance sem decisão
+// Sorteia novo lance + vídeo
 function novoLance() {
   mostrarComSuspense(() => {
-    const lance = lanceAleatorio();
-    document.getElementById("descricaoLance").innerText = "Lance: " + lance;
+    const lance = lances[Math.floor(Math.random() * lances.length)];
+    document.getElementById("descricaoLance").innerText = "Lance: " + lance.descricao;
+    document.getElementById("videoReplay").src = lance.video;
   });
 }
 
 // Decisão final do VAR
 function decisao(texto, detalhe) {
   mostrarComSuspense(() => {
-    const lance = lanceAleatorio();
-    const descricao = document.getElementById("descricaoLance");
-    descricao.innerText = "Lance: " + lance;
+    const lance = lances[Math.floor(Math.random() * lances.length)];
+    document.getElementById("descricaoLance").innerText = "Lance: " + lance.descricao;
+    document.getElementById("videoReplay").src = lance.video;
 
-    // Atualiza resultado final com animação
+    // Resultado com animação
     const resultado = document.getElementById("resultadoFinal");
     resultado.innerText = texto;
     resultado.classList.remove("show");
-    void resultado.offsetWidth; // reinicia animação
+    void resultado.offsetWidth;
     resultado.classList.add("show");
 
     // Toca apito longo
     document.getElementById("apito").play();
 
-    // Adiciona ao histórico
+    // Histórico
     const historico = document.getElementById("listaHistorico");
     const item = document.createElement("li");
     const data = new Date().toLocaleTimeString();
-    item.textContent = `[${data}] ${texto} → Lance: ${lance} | Detalhe: ${detalhe}`;
+    item.textContent = `[${data}] ${texto} → Lance: ${lance.descricao} | Detalhe: ${detalhe}`;
     historico.prepend(item);
-
-    // Reinicia replay automaticamente
-    const video = document.getElementById("videoReplay");
-    video.currentTime = 0;
-    video.play();
   });
 }
 
-// Mostra um lance inicial ao carregar a página
+// Lance inicial ao carregar a página
 window.onload = () => {
   novoLance();
 };
