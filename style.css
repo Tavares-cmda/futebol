@@ -43,6 +43,31 @@ main {
 }
 #descricaoLance {
   font-style: italic;
+  margin-bottom: 10px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+#descricaoLance.suspense {
+  color: #ff0;
+  text-shadow: 0 0 10px #fff, 0 0 20px #ff0;
+}
+
+/* Botão novo lance */
+.novoLance {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #ffcc00;
+  color: #000;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.3s;
+}
+.novoLance:hover {
+  background: #ffaa00;
+  transform: scale(1.05);
 }
 
 /* Ações */
