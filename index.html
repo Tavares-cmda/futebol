@@ -3,32 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema VAR - Simulação</title>
+  <title>Simulador VAR</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Simulador VAR no Futebol</h1>
+    <h1>⚽ Sistema VAR - Simulação Interativa ⚽</h1>
   </header>
 
   <main>
-    <section class="campo">
-      <p id="acao">O juiz solicitou análise do lance...</p>
-      <button onclick="decisaoGol()">Verificar Gol</button>
-      <button onclick="decisaoCartao()">Verificar Cartão</button>
-      <button onclick="decisaoImpedimento()">Verificar Impedimento</button>
+    <!-- Placar -->
+    <section class="placar">
+      <h2 id="tempo">1º Tempo - 32'</h2>
+      <div class="times">
+        <span>🇧🇷 Brasil <strong id="golsBrasil">1</strong></span>
+        <span>x</span>
+        <span><strong id="golsArgentina">1</strong> Argentina 🇦🇷</span>
+      </div>
     </section>
 
+    <!-- Replay de vídeo -->
+    <section class="replay">
+      <h2>Replay em análise</h2>
+      <video id="videoReplay" width="500" controls>
+        <source src="replay.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+      </video>
+      <p id="descricaoLance">Lance: Aguardando análise...</p>
+      <button class="novoLance" onclick="novoLance()">🔄 Sortear novo lance</button>
+    </section>
+
+    <!-- Botões de decisão -->
+    <section class="acoes">
+      <h2>Painel do VAR</h2>
+      <button onclick="decisao('⚽ Gol confirmado! O VAR não encontrou irregularidades.', 'Gol do Brasil válido')">Confirmar Gol</button>
+      <button onclick="decisao('🚩 Gol anulado por impedimento detectado.', 'Impedimento no ataque do Brasil')">Impedimento</button>
+      <button onclick="decisao('🟥 Cartão vermelho confirmado após revisão.', 'Entrada dura do jogador argentino')">Cartão Vermelho</button>
+      <button onclick="decisao('🟨 Cartão amarelo confirmado após revisão.', 'Falta perigosa do jogador brasileiro')">Cartão Amarelo</button>
+      <button onclick="decisao('❌ Sem infração! Jogo segue normalmente.', 'Contato considerado legal pelo árbitro')">Sem Infração</button>
+    </section>
+
+    <!-- Resultado -->
     <section class="resultado">
-      <h2>Decisão do VAR:</h2>
+      <h2>Decisão Final do VAR:</h2>
       <p id="resultadoFinal">Aguardando análise...</p>
+    </section>
+
+    <!-- Estatísticas -->
+    <section class="estatisticas">
+      <h2>📊 Estatísticas do Jogo</h2>
+      <ul>
+        <li>Posse de bola: <span id="posseBrasil">55%</span> Brasil | <span id="posseArgentina">45%</span> Argentina</li>
+        <li>Finalizações: Brasil <span id="finalizacoesBrasil">8</span> | <span id="finalizacoesArgentina">5</span> Argentina</li>
+        <li>Faltas: Brasil <span id="faltasBrasil">6</span> | <span id="faltasArgentina">7</span> Argentina</li>
+      </ul>
+    </section>
+
+    <!-- Histórico -->
+    <section class="historico">
+      <h2>Histórico de Decisões</h2>
+      <ul id="listaHistorico"></ul>
     </section>
   </main>
 
   <footer>
-    <p>Desenvolvido para trabalho escolar - 2025</p>
+    <p>Desenvolvido por Pedro Henrique Tavares - 2025</p>
   </footer>
 
+  <audio id="apito" src="apito.mp3" preload="auto"></audio>
   <script src="script.js"></script>
 </body>
 </html>
