@@ -25,10 +25,11 @@
     <!-- Replay de vídeo -->
     <section class="replay">
       <h2>Replay em análise</h2>
-      <video id="videoReplay" width="500" controls>
-        <source src="replay.mp4" type="video/mp4">
-        Seu navegador não suporta vídeos.
-      </video>
+      <div class="video-container">
+        <iframe id="videoReplay" src="https://www.youtube.com/embed/ID1?rel=0&showinfo=0" 
+          title="Replay do Lance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+        </iframe>
+      </div>
       <p id="descricaoLance">Lance: Aguardando análise...</p>
       <button class="novoLance" onclick="novoLance()">🔄 Sortear novo lance</button>
     </section>
