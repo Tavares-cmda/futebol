@@ -18,13 +18,16 @@ function lanceAleatorio() {
   return lances[index];
 }
 
-// Função de suspense (3..2..1..)
+// Função de suspense realista com som
 function mostrarComSuspense(func) {
   const descricao = document.getElementById("descricaoLance");
+  const beep = document.getElementById("somBeep");
   descricao.classList.add("suspense");
+
   descricao.innerText = "Revisando lance... 3";
-  setTimeout(() => { descricao.innerText = "Revisando lance... 2"; }, 500);
-  setTimeout(() => { descricao.innerText = "Revisando lance... 1"; }, 1000);
+  beep.play();
+  setTimeout(() => { descricao.innerText = "Revisando lance... 2"; beep.play(); }, 500);
+  setTimeout(() => { descricao.innerText = "Revisando lance... 1"; beep.play(); }, 1000);
   setTimeout(() => {
     descricao.classList.remove("suspense");
     func();
@@ -53,7 +56,7 @@ function decisao(texto, detalhe) {
     void resultado.offsetWidth; // reinicia animação
     resultado.classList.add("show");
 
-    // Toca apito
+    // Toca apito longo
     document.getElementById("apito").play();
 
     // Adiciona ao histórico
