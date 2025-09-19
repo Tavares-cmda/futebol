@@ -50,6 +50,7 @@ main {
 #descricaoLance.suspense {
   color: #ff0;
   text-shadow: 0 0 10px #fff, 0 0 20px #ff0;
+  transform: scale(1.1);
 }
 
 /* Botão novo lance */
@@ -104,53 +105,4 @@ main {
   position: relative;
 }
 .resultado.show {
-  animation: destaque 1s ease-in-out;
-}
-@keyframes destaque {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* Estatísticas */
-.estatisticas {
-  margin-top: 30px;
-  background: rgba(0,0,0,0.3);
-  border-radius: 10px;
-  padding: 15px;
-  text-align: left;
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-}
-.estatisticas ul {
-  list-style: none;
-  padding: 0;
-}
-.estatisticas li {
-  margin: 8px 0;
-}
-
-/* Histórico */
-.historico {
-  margin-top: 30px;
-  background: rgba(0,0,0,0.3);
-  border-radius: 10px;
-  padding: 15px;
-}
-.historico ul {
-  list-style: none;
-  padding: 0;
-}
-.historico li {
-  margin: 5px 0;
-  padding: 8px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 5px;
-}
-
-footer {
-  margin-top: 40px;
-  background: #002200;
-  padding: 15px;
-  font-size: 14px;
-}
+  animation: destaque 
