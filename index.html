@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema VAR - Simulação</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Simulador VAR no Futebol</h1>
+  </header>
+
+  <main>
+    <section class="campo">
+      <p id="acao">O juiz solicitou análise do lance...</p>
+      <button onclick="decisaoGol()">Verificar Gol</button>
+      <button onclick="decisaoCartao()">Verificar Cartão</button>
+      <button onclick="decisaoImpedimento()">Verificar Impedimento</button>
+    </section>
+
+    <section class="resultado">
+      <h2>Decisão do VAR:</h2>
+      <p id="resultadoFinal">Aguardando análise...</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Desenvolvido para trabalho escolar - 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
