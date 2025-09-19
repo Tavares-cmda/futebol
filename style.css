@@ -1,48 +1,54 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #e9f5e9;
-  text-align: center;
+// Lista de lances possíveis
+const lances = [
+  "Possível impedimento no ataque",
+  "Checagem de mão na bola dentro da área",
+  "Revisão de possível pênalti",
+  "Entrada dura – possível cartão vermelho",
+  "Disputa de bola considerada perigosa",
+  "Gol duvidoso em posição legal",
+  "Empurrão dentro da grande área",
+  "Verificação de gol após toque de mão",
+  "Jogador em posição irregular recebendo a bola",
+  "Contato leve avaliado pelo árbitro"
+];
+
+// Função para pegar lance aleatório
+function lanceAleatorio() {
+  const index = Math.floor(Math.random() * lances.length);
+  return lances[index];
 }
 
-header {
-  background: #006400;
-  color: white;
-  padding: 20px;
+// Sorteia lance sem decisão
+function novoLance() {
+  const lance = lanceAleatorio();
+  document.getElementById("descricaoLance").innerText = "Lance: " + lance;
 }
 
-main {
-  margin: 20px;
-}
+// Decisão final do VAR
+function decisao(texto, detalhe) {
+  // Mostra um lance aleatório automaticamente
+  const lance = lanceAleatorio();
+  document.getElementById("descricaoLance").innerText = "Lance: " + lance;
 
-.campo button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background: #228B22;
-  color: white;
-  transition: 0.3s;
-}
+  // Atualiza resultado final com animação
+  const resultado = document.getElementById("resultadoFinal");
+  resultado.innerText = texto;
+  resultado.classList.remove("show");
+  void resultado.offsetWidth; // truque p/ reiniciar animação
+  resultado.classList.add("show");
 
-.campo button:hover {
-  background: #006400;
-}
+  // Toca apito
+  document.getElementById("apito").play();
 
-.resultado {
-  margin-top: 30px;
-  padding: 20px;
-  border: 2px solid #228B22;
-  border-radius: 10px;
-  background: white;
-}
+  // Adiciona ao histórico
+  const historico = document.getElementById("listaHistorico");
+  const item = document.createElement("li");
+  const data = new Date().toLocaleTimeString();
+  item.textContent = `[${data}] ${texto} → Lance: ${lance} | Detalhe: ${detalhe}`;
+  historico.prepend(item);
 
-footer {
-  margin-top: 40px;
-  background: #006400;
-  color: white;
-  padding: 10px;
+  // Reinicia replay automaticamente
+  const video = document.getElementById("videoReplay");
+  video.currentTime = 0;
+  video.play();
 }
