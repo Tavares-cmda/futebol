@@ -52,3 +52,8 @@ function decisao(texto, detalhe) {
   video.currentTime = 0;
   video.play();
 }
+
+// Quando a página carregar, já mostra um lance inicial
+window.onload = () => {
+  novoLance();
+};
