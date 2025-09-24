@@ -3,17 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VAR de Futebol</title>
+  <title>Igreja e VAR de Futebol</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Cabeçalho -->
   <header>
-    <h1>VAR - Futebol</h1>
+    <h1>Igreja / VAR de Futebol</h1>
+    <nav>
+      <a href="index.html">Home</a> |
+      <a href="igreja.html">Igreja</a> |
+      <a href="colegio.html">Colégio</a>
+    </nav>
   </header>
 
+  <!-- Conteúdo principal -->
   <main>
-    <section class="painel">
-      <h2>Decisão em análise</h2>
+    <!-- Conteúdo original da página -->
+    <section class="conteudo">
+      <h2>Bem-vindo à nossa igreja!</h2>
+      <p>Texto sobre a igreja...</p>
+    </section>
+
+    <!-- VAR de Futebol -->
+    <section class="painel-var">
+      <h2>Decisão em análise (VAR)</h2>
       <p id="mensagem">Aguardando chamada do árbitro...</p>
       <div class="botoes">
         <button id="btn-var">Chamar o VAR</button>
@@ -23,24 +37,26 @@
         <button id="btn-penalti">Marcar Pênalti</button>
         <button id="btn-sem">Sem Infração</button>
       </div>
-    </section>
 
-    <section class="video">
-      <h2>Replay do Lance</h2>
-      <div id="replay-container">
-        <p>O replay aparecerá aqui quando for chamado.</p>
-      </div>
-      <div class="controle-replay">
-        <button id="btn-prev">⬅ Replay Anterior</button>
-        <button id="btn-next">Próximo Replay ➡</button>
+      <div class="video">
+        <h3>Replay do Lance</h3>
+        <div id="replay-container">
+          <p>O replay aparecerá aqui quando for chamado.</p>
+        </div>
+        <div class="controle-replay">
+          <button id="btn-prev">⬅ Replay Anterior</button>
+          <button id="btn-next">Próximo Replay ➡</button>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- Rodapé -->
   <footer>
-    <p>⚽ Projeto VAR - Simulação | Feito por Pedro Henrique</p>
+    <p>© 2025 Projeto Igreja & VAR | Feito por Pedro Henrique</p>
   </footer>
 
+  <!-- Script do VAR -->
   <script src="script.js"></script>
 </body>
 </html>
