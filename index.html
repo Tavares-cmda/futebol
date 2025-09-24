@@ -1,62 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Igreja e VAR de Futebol</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contra a Poluição - Mini Jogo</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Cabeçalho -->
-  <header>
-    <h1>Igreja / VAR de Futebol</h1>
-    <nav>
-      <a href="index.html">Home</a> |
-      <a href="igreja.html">Igreja</a> |
-      <a href="colegio.html">Colégio</a>
-    </nav>
-  </header>
+<header>
+    <h1>Projeto: Contra a Poluição 🌱</h1>
+</header>
 
-  <!-- Conteúdo principal -->
-  <main>
-    <!-- Conteúdo original da página -->
-    <section class="conteudo">
-      <h2>Bem-vindo à nossa igreja!</h2>
-      <p>Texto sobre a igreja...</p>
+<main>
+    <section class="intro">
+        <p>A poluição prejudica nosso planeta. Cada ação conta! Aprenda e jogue para ajudar a limpar a Terra.</p>
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Poluição ambiental" class="intro-img">
     </section>
 
-    <!-- VAR de Futebol -->
-    <section class="painel-var">
-      <h2>Decisão em análise (VAR)</h2>
-      <p id="mensagem">Aguardando chamada do árbitro...</p>
-      <div class="botoes">
-        <button id="btn-var">Chamar o VAR</button>
-        <button id="btn-replay">Mostrar Replay</button>
-        <button id="btn-validar">Validar Gol</button>
-        <button id="btn-anular">Anular Gol</button>
-        <button id="btn-penalti">Marcar Pênalti</button>
-        <button id="btn-sem">Sem Infração</button>
-      </div>
-
-      <div class="video">
-        <h3>Replay do Lance</h3>
-        <div id="replay-container">
-          <p>O replay aparecerá aqui quando for chamado.</p>
-        </div>
-        <div class="controle-replay">
-          <button id="btn-prev">⬅ Replay Anterior</button>
-          <button id="btn-next">Próximo Replay ➡</button>
-        </div>
-      </div>
+    <section class="acoes">
+        <button id="nova-acao">Mostrar Dica 🌍</button>
+        <ul id="lista-acoes"></ul>
     </section>
-  </main>
 
-  <!-- Rodapé -->
-  <footer>
-    <p>© 2025 Projeto Igreja & VAR | Feito por Pedro Henrique</p>
-  </footer>
+    <section class="jogo">
+        <h2>Jogue o lixo na lixeira ♻️</h2>
+        <p>Pontos: <span id="pontuacao">0</span></p>
+        <div class="cenario">
+            <div class="lixeira" id="lixeira"></div>
+        </div>
+        <button id="gerar-lixo">Gerar Lixo 🗑️</button>
+    </section>
+</main>
 
-  <!-- Script do VAR -->
-  <script src="script.js"></script>
+<footer>
+    <p>Projeto educativo - GitHub Pages</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
