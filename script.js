@@ -1,69 +1,57 @@
-// Lista de lances com vídeo correspondente
-const lances = [
-  { descricao: "Possível impedimento no ataque", video: "https://www.youtube.com/embed/ID1?rel=0&showinfo=0" },
-  { descricao: "Checagem de mão na bola dentro da área", video: "https://www.youtube.com/embed/ID2?rel=0&showinfo=0" },
-  { descricao: "Revisão de possível pênalti", video: "https://www.youtube.com/embed/ID3?rel=0&showinfo=0" },
-  { descricao: "Entrada dura – possível cartão vermelho", video: "https://www.youtube.com/embed/ID4?rel=0&showinfo=0" },
-  { descricao: "Disputa de bola considerada perigosa", video: "https://www.youtube.com/embed/ID5?rel=0&showinfo=0" },
-  { descricao: "Gol duvidoso em posição legal", video: "https://www.youtube.com/embed/ID6?rel=0&showinfo=0" },
-  { descricao: "Empurrão dentro da grande área", video: "https://www.youtube.com/embed/ID7?rel=0&showinfo=0" },
-  { descricao: "Verificação de gol após toque de mão", video: "https://www.youtube.com/embed/ID8?rel=0&showinfo=0" },
-  { descricao: "Jogador em posição irregular recebendo a bola", video: "https://www.youtube.com/embed/ID9?rel=0&showinfo=0" },
-  { descricao: "Contato leve avaliado pelo árbitro", video: "https://www.youtube.com/embed/ID10?rel=0&showinfo=0" }
-];
+document.addEventListener("DOMContentLoaded", () => {
+  const mensagem = document.getElementById("mensagem");
+  const container = document.getElementById("replay-container");
 
-// Função de suspense realista
-function mostrarComSuspense(func) {
-  const descricao = document.getElementById("descricaoLance");
-  const beep = document.getElementById("somBeep");
-  descricao.classList.add("suspense");
+  // Lista de vídeos genéricos (IDs do YouTube)
+  const replays = [
+    "9xwazD5SyVg", // vídeo exemplo
+    "dQw4w9WgXcQ", // exemplo 2
+    "C0DPdy98e4c"  // exemplo 3
+  ];
+  let replayAtual = 0;
 
-  descricao.innerText = "Revisando lance... 3";
-  beep.play();
-  setTimeout(() => { descricao.innerText = "Revisando lance... 2"; beep.play(); }, 500);
-  setTimeout(() => { descricao.innerText = "Revisando lance... 1"; beep.play(); }, 1000);
-  setTimeout(() => {
-    descricao.classList.remove("suspense");
-    func();
-  }, 1500);
-}
+  function atualizarReplay() {
+    container.innerHTML = `
+      <iframe src="https://www.youtube.com/embed/${replays[replayAtual]}" 
+        title="Replay do Lance" 
+        frameborder="0" 
+        allowfullscreen></iframe>
+    `;
+  }
 
-// Sorteia novo lance + vídeo
-function novoLance() {
-  mostrarComSuspense(() => {
-    const lance = lances[Math.floor(Math.random() * lances.length)];
-    document.getElementById("descricaoLance").innerText = "Lance: " + lance.descricao;
-    document.getElementById("videoReplay").src = lance.video;
+  // Botões principais
+  document.getElementById("btn-var").addEventListener("click", () => {
+    mensagem.innerText = "VAR chamado! Analisando o lance...";
   });
-}
 
-// Decisão final do VAR
-function decisao(texto, detalhe) {
-  mostrarComSuspense(() => {
-    const lance = lances[Math.floor(Math.random() * lances.length)];
-    document.getElementById("descricaoLance").innerText = "Lance: " + lance.descricao;
-    document.getElementById("videoReplay").src = lance.video;
-
-    // Resultado com animação
-    const resultado = document.getElementById("resultadoFinal");
-    resultado.innerText = texto;
-    resultado.classList.remove("show");
-    void resultado.offsetWidth;
-    resultado.classList.add("show");
-
-    // Toca apito longo
-    document.getElementById("apito").play();
-
-    // Histórico
-    const historico = document.getElementById("listaHistorico");
-    const item = document.createElement("li");
-    const data = new Date().toLocaleTimeString();
-    item.textContent = `[${data}] ${texto} → Lance: ${lance.descricao} | Detalhe: ${detalhe}`;
-    historico.prepend(item);
+  document.getElementById("btn-replay").addEventListener("click", () => {
+    atualizarReplay();
   });
-}
 
-// Lance inicial ao carregar a página
-window.onload = () => {
-  novoLance();
-};
+  document.getElementById("btn-validar").addEventListener("click", () => {
+    mensagem.innerText = "GOL VALIDADO ✅";
+  });
+
+  document.getElementById("btn-anular").addEventListener("click", () => {
+    mensagem.innerText = "GOL ANULADO ❌";
+  });
+
+  document.getElementById("btn-penalti").addEventListener("click", () => {
+    mensagem.innerText = "PÊNALTI MARCADO ⚽";
+  });
+
+  document.getElementById("btn-sem").addEventListener("click", () => {
+    mensagem.innerText = "SEM INFRAÇÃO 👍";
+  });
+
+  // Controle de replays
+  document.getElementById("btn-prev").addEventListener("click", () => {
+    replayAtual = (replayAtual - 1 + replays.length) % replays.length;
+    atualizarReplay();
+  });
+
+  document.getElementById("btn-next").addEventListener("click", () => {
+    replayAtual = (replayAtual + 1) % replays.length;
+    atualizarReplay();
+  });
+});
