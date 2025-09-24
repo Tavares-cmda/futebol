@@ -3,77 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulador VAR Realista</title>
+  <title>VAR de Futebol</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>⚽ Sistema VAR - Simulação Realista ⚽</h1>
+    <h1>VAR - Futebol</h1>
   </header>
 
   <main>
-    <!-- Placar -->
-    <section class="placar">
-      <h2 id="tempo">1º Tempo - 32'</h2>
-      <div class="times">
-        <span>🇧🇷 Brasil <strong id="golsBrasil">1</strong></span>
-        <span>x</span>
-        <span><strong id="golsArgentina">1</strong> Argentina 🇦🇷</span>
+    <section class="painel">
+      <h2>Decisão em análise</h2>
+      <p id="mensagem">Aguardando chamada do árbitro...</p>
+      <div class="botoes">
+        <button id="btn-var">Chamar o VAR</button>
+        <button id="btn-replay">Mostrar Replay</button>
+        <button id="btn-validar">Validar Gol</button>
+        <button id="btn-anular">Anular Gol</button>
+        <button id="btn-penalti">Marcar Pênalti</button>
+        <button id="btn-sem">Sem Infração</button>
       </div>
     </section>
 
-    <!-- Replay de vídeo -->
-    <section class="replay">
-      <h2>Replay em análise</h2>
-      <div class="video-container">
-        <iframe id="videoReplay" src="https://www.youtube.com/embed/ID1?rel=0&showinfo=0" 
-          title="Replay do Lance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-        </iframe>
+    <section class="video">
+      <h2>Replay do Lance</h2>
+      <div id="replay-container">
+        <p>O replay aparecerá aqui quando for chamado.</p>
       </div>
-      <p id="descricaoLance">Lance: Aguardando análise...</p>
-      <button class="novoLance" onclick="novoLance()">🔄 Sortear novo lance</button>
-    </section>
-
-    <!-- Botões de decisão -->
-    <section class="acoes">
-      <h2>Painel do VAR</h2>
-      <button onclick="decisao('⚽ Gol confirmado! O VAR não encontrou irregularidades.', 'Gol do Brasil válido')">Confirmar Gol</button>
-      <button onclick="decisao('🚩 Gol anulado por impedimento detectado.', 'Impedimento no ataque do Brasil')">Impedimento</button>
-      <button onclick="decisao('🟥 Cartão vermelho confirmado após revisão.', 'Entrada dura do jogador argentino')">Cartão Vermelho</button>
-      <button onclick="decisao('🟨 Cartão amarelo confirmado após revisão.', 'Falta perigosa do jogador brasileiro')">Cartão Amarelo</button>
-      <button onclick="decisao('❌ Sem infração! Jogo segue normalmente.', 'Contato considerado legal pelo árbitro')">Sem Infração</button>
-    </section>
-
-    <!-- Resultado -->
-    <section class="resultado">
-      <h2>Decisão Final do VAR:</h2>
-      <p id="resultadoFinal">Aguardando análise...</p>
-    </section>
-
-    <!-- Estatísticas -->
-    <section class="estatisticas">
-      <h2>📊 Estatísticas do Jogo</h2>
-      <ul>
-        <li>Posse de bola: <span id="posseBrasil">55%</span> Brasil | <span id="posseArgentina">45%</span> Argentina</li>
-        <li>Finalizações: Brasil <span id="finalizacoesBrasil">8</span> | <span id="finalizacoesArgentina">5</span> Argentina</li>
-        <li>Faltas: Brasil <span id="faltasBrasil">6</span> | <span id="faltasArgentina">7</span> Argentina</li>
-      </ul>
-    </section>
-
-    <!-- Histórico -->
-    <section class="historico">
-      <h2>Histórico de Decisões</h2>
-      <ul id="listaHistorico"></ul>
+      <div class="controle-replay">
+        <button id="btn-prev">⬅ Replay Anterior</button>
+        <button id="btn-next">Próximo Replay ➡</button>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>Desenvolvido por Pedro Henrique Tavares - 2025</p>
+    <p>⚽ Projeto VAR - Simulação | Feito por Pedro Henrique</p>
   </footer>
-
-  <!-- Sons -->
-  <audio id="apito" src="apito.mp3" preload="auto"></audio>
-  <audio id="somBeep" src="beep.mp3" preload="auto"></audio>
 
   <script src="script.js"></script>
 </body>
