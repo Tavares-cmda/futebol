@@ -2,11 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const mensagem = document.getElementById("mensagem");
   const container = document.getElementById("replay-container");
 
-  // Lista de vídeos genéricos (IDs do YouTube)
   const replays = [
-    "9xwazD5SyVg", // vídeo exemplo
-    "dQw4w9WgXcQ", // exemplo 2
-    "C0DPdy98e4c"  // exemplo 3
+    "9xwazD5SyVg", 
+    "dQw4w9WgXcQ", 
+    "C0DPdy98e4c"
   ];
   let replayAtual = 0;
 
@@ -19,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
-  // Botões principais
   document.getElementById("btn-var").addEventListener("click", () => {
     mensagem.innerText = "VAR chamado! Analisando o lance...";
   });
@@ -44,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
     mensagem.innerText = "SEM INFRAÇÃO 👍";
   });
 
-  // Controle de replays
   document.getElementById("btn-prev").addEventListener("click", () => {
     replayAtual = (replayAtual - 1 + replays.length) % replays.length;
     atualizarReplay();
