@@ -1,72 +1,43 @@
-// Dicas de ações
-const acoes = [
-    "Recicle papel, plástico e vidro.",
-    "Evite jogar lixo nas ruas e rios.",
-    "Economize água e energia elétrica.",
-    "Use transporte público ou bicicleta.",
-    "Plante árvores na sua comunidade.",
-    "Compre produtos sustentáveis.",
-    "Evite produtos descartáveis.",
-    "Participe de mutirões de limpeza."
-];
+// Lista de aulas por dia da semana
+const aulas = {
+  "Domingo": ["Descanso 😴"],
+  "Segunda-feira": ["Matemática", "Português", "História"],
+  "Terça-feira": ["Geografia", "Ciências", "Educação Física"],
+  "Quarta-feira": ["Inglês", "Matemática", "Arte"],
+  "Quinta-feira": ["História", "Ciências", "Português"],
+  "Sexta-feira": ["Matemática", "Educação Física", "Geografia"],
+  "Sábado": ["Revisão Geral 📖"]
+};
 
-const listaAcoes = document.getElementById("lista-acoes");
-const botaoAcao = document.getElementById("nova-acao");
+// Mostrar dia e aulas
+const hoje = new Date();
+const diaSemana = hoje.toLocaleDateString("pt-BR", { weekday: "long" });
+document.getElementById("diaSemana").innerText = `Hoje é ${diaSemana}`;
 
-botaoAcao.addEventListener("click", () => {
-    const indice = Math.floor(Math.random() * acoes.length);
-    const li = document.createElement("li");
-    li.textContent = acoes[indice];
-    listaAcoes.appendChild(li);
+const listaAulas = document.getElementById("listaAulas");
+aulas[diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)].forEach(aula => {
+  let li = document.createElement("li");
+  li.textContent = aula;
+  listaAulas.appendChild(li);
 });
 
-// Jogo de lixo
-const cenario = document.querySelector(".cenario");
-const lixeira = document.getElementById("lixeira");
-const botaoLixo = document.getElementById("gerar-lixo");
-let pontuacao = 0;
-const pontuacaoElem = document.getElementById("pontuacao");
+// Função para adicionar tarefas
+function adicionarTarefa() {
+  const input = document.getElementById("novaTarefa");
+  const tarefa = input.value.trim();
 
-botaoLixo.addEventListener("click", () => {
-    const lixo = document.createElement("div");
-    lixo.classList.add("lixo");
-    lixo.style.left = Math.random() * (cenario.offsetWidth - 40) + "px";
-    lixo.style.top = "0px";
-    cenario.appendChild(lixo);
+  if (tarefa !== "") {
+    let li = document.createElement("li");
+    li.textContent = tarefa;
 
-    lixo.draggable = true;
+    // Botão de remover
+    let btn = document.createElement("button");
+    btn.textContent = "❌";
+    btn.style.marginLeft = "10px";
+    btn.onclick = () => li.remove();
 
-    lixo.addEventListener("dragstart", (e) => {
-        e.dataTransfer.setData("text/plain", null);
-    });
-
-    lixo.addEventListener("dragend", (e) => {
-        const rectLixeira = lixeira.getBoundingClientRect();
-        const rectLixo = lixo.getBoundingClientRect();
-
-        if (
-            rectLixo.bottom >= rectLixeira.top &&
-            rectLixo.left + rectLixo.width / 2 >= rectLixeira.left &&
-            rectLixo.right - rectLixo.width / 2 <= rectLixeira.right
-        ) {
-            pontuacao++;
-            pontuacaoElem.textContent = pontuacao;
-            lixo.remove();
-        } else {
-            // Caiu fora da lixeira, volta para o topo
-            lixo.style.top = "0px";
-        }
-    });
-
-    // Movimento automático para descer
-    let descendo = setInterval(() => {
-        const topAtual = parseInt(lixo.style.top);
-        if (topAtual + 5 < cenario.offsetHeight - 40) {
-            lixo.style.top = topAtual + 5 + "px";
-        } else {
-            lixo.remove();
-            clearInterval(descendo);
-        }
-    }, 50);
-});
-
+    li.appendChild(btn);
+    document.getElementById("listaTarefas").appendChild(li);
+    input.value = "";
+  }
+}
