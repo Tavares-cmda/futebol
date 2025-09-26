@@ -1,15 +1,16 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom, #0077b6, #00b4d8);
-  color: #fff;
-  text-align: center;
+  background: linear-gradient(to bottom, #caf0f8, #90e0ef);
+  color: #333;
 }
 
 header {
   padding: 20px;
-  background: #023e8a;
+  background: #0077b6;
+  color: #fff;
+  text-align: center;
 }
 
 main {
@@ -20,31 +21,49 @@ main {
 }
 
 section {
-  background: rgba(255, 255, 255, 0.1);
+  background: #fff;
   padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: #0077b6;
+}
+
+h3 {
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.input-tarefa {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 input {
-  padding: 8px;
-  border: none;
-  border-radius: 5px;
-  width: 60%;
+  padding: 10px;
+  border: 2px solid #0077b6;
+  border-radius: 8px;
+  width: 70%;
 }
 
 button {
-  padding: 8px 12px;
+  padding: 10px 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   margin-left: 5px;
-  background: #03045e;
+  background: #0077b6;
   color: white;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
-  background: #0077b6;
+  background: #0096c7;
 }
 
 ul {
@@ -53,14 +72,70 @@ ul {
 }
 
 li {
-  background: rgba(255,255,255,0.2);
+  background: #e0f7fa;
   margin: 5px 0;
   padding: 8px;
-  border-radius: 5px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li.concluida {
+  text-decoration: line-through;
+  color: #777;
+  background: #d9f7d9;
+}
+
+/* Grade semanal */
+.grade {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.dia {
+  background: #f1faff;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #0077b6;
+}
+
+.dia h3 {
+  text-align: center;
+  margin-bottom: 8px;
+  color: #03045e;
+}
+
+.dia ul li {
+  background: #ade8f4;
+  margin: 3px 0;
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* Destaque no dia atual */
+.dia.hoje {
+  border: 3px solid #ff4d6d;
+  background: #ffe6eb;
 }
 
 footer {
-  background: #023e8a;
-  padding: 10px;
+  background: #0077b6;
+  padding: 12px;
+  text-align: center;
+  color: #fff;
   margin-top: 20px;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+  .grade {
+    grid-template-columns: 1fr;
+  }
 }
