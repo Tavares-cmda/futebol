@@ -1,78 +1,64 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom, #caf0f8, #90e0ef);
+  background: #f4f7f9;
   color: #333;
 }
 
 header {
+  background: #0044cc;
+  color: white;
   padding: 20px;
-  background: #0077b6;
-  color: #fff;
   text-align: center;
 }
 
 main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  max-width: 800px;
+  margin: 20px auto;
   padding: 20px;
 }
 
 section {
-  background: #fff;
+  background: white;
+  margin-bottom: 20px;
   padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 
-h2 {
-  margin-bottom: 10px;
-  color: #0077b6;
-}
-
-h3 {
-  margin-top: 15px;
-  font-size: 1rem;
-  color: #555;
-}
-
+/* Tarefas */
 .input-tarefa {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
 }
 
-input {
+.input-tarefa input {
   padding: 10px;
-  border: 2px solid #0077b6;
+  border: 2px solid #0044cc;
   border-radius: 8px;
   width: 70%;
 }
 
-button {
+.input-tarefa button {
   padding: 10px 14px;
   border: none;
   border-radius: 8px;
   margin-left: 5px;
-  background: #0077b6;
+  background: #0044cc;
   color: white;
   cursor: pointer;
   transition: 0.3s;
 }
 
-button:hover {
-  background: #0096c7;
+.input-tarefa button:hover {
+  background: #002a80;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  background: #e0f7fa;
+#listaTarefas li, #tarefasConcluidas li {
+  background: #e6f0ff;
+  border: 1px solid #b3d1ff;
   margin: 5px 0;
   padding: 8px;
   border-radius: 8px;
@@ -81,61 +67,120 @@ li {
   align-items: center;
 }
 
-li.concluida {
-  text-decoration: line-through;
-  color: #777;
-  background: #d9f7d9;
+#tarefasConcluidas li {
+  background: #d4edda;
+  border: 1px solid #a3cfbb;
 }
 
-/* Grade semanal */
-.grade {
+/* Avisos */
+.avisos {
+  background: #fff3cd;
+  border-left: 6px solid #ffc107;
+}
+
+.avisos h2 {
+  color: #856404;
+}
+
+.input-aviso {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.input-aviso input {
+  padding: 10px;
+  border: 2px solid #ffc107;
+  border-radius: 8px;
+  width: 70%;
+}
+
+.input-aviso button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  margin-left: 5px;
+  background: #ffc107;
+  color: #333;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.input-aviso button:hover {
+  background: #ffca2c;
+}
+
+#listaAvisos li {
+  background: #fff8e1;
+  border: 1px solid #ffe58f;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Botões dentro das listas */
+li button {
+  margin-left: 6px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Editar */
+li button.editar {
+  background: #17a2b8;
+  color: white;
+}
+li button.editar:hover {
+  background: #117a8b;
+}
+
+/* Remover */
+li button.remover {
+  background: #dc3545;
+  color: white;
+}
+li button.remover:hover {
+  background: #a71d2a;
+}
+
+/* Concluir */
+li button.concluir {
+  background: #28a745;
+  color: white;
+}
+li button.concluir:hover {
+  background: #1e7e34;
+}
+
+/* Aulas */
+#horario {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
-  margin-top: 15px;
-}
-
-.dia {
-  background: #f1faff;
-  padding: 10px;
-  border-radius: 10px;
-  border: 2px solid #0077b6;
-}
-
-.dia h3 {
   text-align: center;
-  margin-bottom: 8px;
-  color: #03045e;
 }
 
-.dia ul li {
-  background: #ade8f4;
-  margin: 3px 0;
-  padding: 6px;
-  border-radius: 6px;
-  font-size: 0.9rem;
+#horario div {
+  background: #f1f1f1;
+  padding: 10px;
+  border-radius: 8px;
 }
 
-/* Destaque no dia atual */
-.dia.hoje {
-  border: 3px solid #ff4d6d;
-  background: #ffe6eb;
+#horario .hoje {
+  background: #0044cc;
+  color: white;
+  font-weight: bold;
 }
 
 footer {
-  background: #0077b6;
-  padding: 12px;
+  background: #0044cc;
+  color: white;
   text-align: center;
-  color: #fff;
-  margin-top: 20px;
-}
-
-/* Responsivo */
-@media (max-width: 900px) {
-  main {
-    grid-template-columns: 1fr;
-  }
-  .grade {
-    grid-template-columns: 1fr;
-  }
+  padding: 10px;
 }
