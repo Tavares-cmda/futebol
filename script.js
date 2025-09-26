@@ -1,26 +1,39 @@
-// Lista de aulas por dia da semana
-const aulas = {
-  "Domingo": ["Descanso 😴"],
-  "Segunda-feira": ["📐 Matemática", "📖 Português", "🏺 História"],
-  "Terça-feira": ["🌍 Geografia", "🔬 Ciências", "⚽ Educação Física"],
-  "Quarta-feira": ["🇬🇧 Inglês", "📐 Matemática", "🎨 Arte"],
-  "Quinta-feira": ["🏺 História", "🔬 Ciências", "📖 Português"],
-  "Sexta-feira": ["📐 Matemática", "⚽ Educação Física", "🌍 Geografia"],
-  "Sábado": ["📖 Revisão Geral"]
+// --- Grade semanal de aulas (2º Ano) ---
+const aulasSemana = {
+  "Segunda-feira": ["📐 Matemática", "📖 Português", "🏺 História", "🧪 Química"],
+  "Terça-feira": ["🌍 Geografia", "🔬 Biologia", "⚽ Educação Física", "📖 Português"],
+  "Quarta-feira": ["🇬🇧 Inglês", "📐 Matemática", "🔭 Física", "🎨 Arte"],
+  "Quinta-feira": ["🏺 História", "📖 Português", "🔬 Biologia", "🧪 Química"],
+  "Sexta-feira": ["📐 Matemática", "🌍 Geografia", "🔭 Física", "⚽ Educação Física"]
 };
 
-// --- Mostrar dia e aulas ---
+// --- Mostrar aulas na tela ---
+const grade = document.getElementById("gradeAulas");
 const hoje = new Date();
 const diaSemana = hoje.toLocaleDateString("pt-BR", { weekday: "long" });
-document.getElementById("diaSemana").innerText = `Hoje é ${diaSemana}`;
 
-const listaAulas = document.getElementById("listaAulas");
-const diaFormatado = diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1);
-aulas[diaFormatado].forEach(aula => {
-  let li = document.createElement("li");
-  li.textContent = aula;
-  listaAulas.appendChild(li);
-});
+for (let dia in aulasSemana) {
+  let div = document.createElement("div");
+  div.classList.add("dia");
+
+  if (dia.toLowerCase() === diaSemana.toLowerCase()) {
+    div.classList.add("hoje"); // destaca o dia atual
+  }
+
+  let titulo = document.createElement("h3");
+  titulo.textContent = dia;
+  div.appendChild(titulo);
+
+  let ul = document.createElement("ul");
+  aulasSemana[dia].forEach(aula => {
+    let li = document.createElement("li");
+    li.textContent = aula;
+    ul.appendChild(li);
+  });
+
+  div.appendChild(ul);
+  grade.appendChild(div);
+}
 
 // --- Gerenciar Tarefas ---
 const listaTarefas = document.getElementById("listaTarefas");
@@ -49,7 +62,7 @@ function criarTarefa(texto, concluida) {
   // Botão concluir
   let btnConcluir = document.createElement("button");
   btnConcluir.textContent = "✔";
-  btnConcluir.onclick = () => concluirTarefa(li, texto);
+  btnConcluir.onclick = () => concluirTarefa(li);
 
   // Botão remover
   let btnRemover = document.createElement("button");
@@ -70,7 +83,7 @@ function criarTarefa(texto, concluida) {
   }
 }
 
-function concluirTarefa(li, texto) {
+function concluirTarefa(li) {
   li.classList.add("concluida");
   tarefasConcluidas.appendChild(li);
   salvarTarefas();
