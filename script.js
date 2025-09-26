@@ -1,49 +1,6 @@
-// --- Grade semanal de aulas (2º Ano) ---
-const aulasSemana = {
-  "Segunda-feira": ["📐 Matemática", "📖 Português", "🏺 História", "🧪 Química"],
-  "Terça-feira": ["🌍 Geografia", "🔬 Biologia", "⚽ Educação Física", "📖 Português"],
-  "Quarta-feira": ["🇬🇧 Inglês", "📐 Matemática", "🔭 Física", "🎨 Arte"],
-  "Quinta-feira": ["🏺 História", "📖 Português", "🔬 Biologia", "🧪 Química"],
-  "Sexta-feira": ["📐 Matemática", "🌍 Geografia", "🔭 Física", "⚽ Educação Física"]
-};
-
-// --- Mostrar aulas na tela ---
-const grade = document.getElementById("gradeAulas");
-const hoje = new Date();
-const diaSemana = hoje.toLocaleDateString("pt-BR", { weekday: "long" });
-
-for (let dia in aulasSemana) {
-  let div = document.createElement("div");
-  div.classList.add("dia");
-
-  if (dia.toLowerCase() === diaSemana.toLowerCase()) {
-    div.classList.add("hoje"); // destaca o dia atual
-  }
-
-  let titulo = document.createElement("h3");
-  titulo.textContent = dia;
-  div.appendChild(titulo);
-
-  let ul = document.createElement("ul");
-  aulasSemana[dia].forEach(aula => {
-    let li = document.createElement("li");
-    li.textContent = aula;
-    ul.appendChild(li);
-  });
-
-  div.appendChild(ul);
-  grade.appendChild(div);
-}
-
-// --- Gerenciar Tarefas ---
+// --- Tarefas ---
 const listaTarefas = document.getElementById("listaTarefas");
-const tarefasConcluidas = document.getElementById("tarefasConcluidas");
-
-// Carregar tarefas salvas
-window.onload = () => {
-  const salvas = JSON.parse(localStorage.getItem("tarefas")) || [];
-  salvas.forEach(tarefa => criarTarefa(tarefa.texto, tarefa.concluida));
-};
+const listaConcluidas = document.getElementById("tarefasConcluidas");
 
 function adicionarTarefa() {
   const input = document.getElementById("novaTarefa");
@@ -60,43 +17,136 @@ function criarTarefa(texto, concluida) {
   li.textContent = texto;
 
   // Botão concluir
-  let btnConcluir = document.createElement("button");
-  btnConcluir.textContent = "✔";
-  btnConcluir.onclick = () => concluirTarefa(li);
+  if (!concluida) {
+    let btnConcluir = document.createElement("button");
+    btnConcluir.textContent = "✔";
+    btnConcluir.classList.add("concluir");
+    btnConcluir.onclick = () => {
+      listaConcluidas.appendChild(li);
+      btnConcluir.remove();
+      salvarTarefas();
+    };
+    li.appendChild(btnConcluir);
+  }
+
+  // Botão editar
+  let btnEditar = document.createElement("button");
+  btnEditar.textContent = "✏";
+  btnEditar.classList.add("editar");
+  btnEditar.onclick = () => editarItem(li, "tarefa");
+  li.appendChild(btnEditar);
 
   // Botão remover
   let btnRemover = document.createElement("button");
   btnRemover.textContent = "❌";
+  btnRemover.classList.add("remover");
   btnRemover.onclick = () => {
     li.remove();
     salvarTarefas();
   };
-
-  li.appendChild(btnConcluir);
   li.appendChild(btnRemover);
 
   if (concluida) {
-    li.classList.add("concluida");
-    tarefasConcluidas.appendChild(li);
+    listaConcluidas.appendChild(li);
   } else {
     listaTarefas.appendChild(li);
   }
 }
 
-function concluirTarefa(li) {
-  li.classList.add("concluida");
-  tarefasConcluidas.appendChild(li);
-  salvarTarefas();
-}
-
-// Salvar no localStorage
 function salvarTarefas() {
-  let todas = [];
+  let tarefas = [];
   document.querySelectorAll("#listaTarefas li").forEach(li => {
-    todas.push({ texto: li.firstChild.textContent, concluida: false });
+    tarefas.push({ texto: li.firstChild.textContent, concluida: false });
   });
   document.querySelectorAll("#tarefasConcluidas li").forEach(li => {
-    todas.push({ texto: li.firstChild.textContent, concluida: true });
+    tarefas.push({ texto: li.firstChild.textContent, concluida: true });
   });
-  localStorage.setItem("tarefas", JSON.stringify(todas));
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
 }
+
+// --- Avisos ---
+const listaAvisos = document.getElementById("listaAvisos");
+
+function adicionarAviso() {
+  const input = document.getElementById("novoAviso");
+  const aviso = input.value.trim();
+  if (aviso !== "") {
+    criarAviso(aviso);
+    salvarAvisos();
+    input.value = "";
+  }
+}
+
+function criarAviso(texto) {
+  let li = document.createElement("li");
+  li.textContent = texto;
+
+  // Botão editar
+  let btnEditar = document.createElement("button");
+  btnEditar.textContent = "✏";
+  btnEditar.classList.add("editar");
+  btnEditar.onclick = () => editarItem(li, "aviso");
+  li.appendChild(btnEditar);
+
+  // Botão remover
+  let btnRemover = document.createElement("button");
+  btnRemover.textContent = "❌";
+  btnRemover.classList.add("remover");
+  btnRemover.onclick = () => {
+    li.remove();
+    salvarAvisos();
+  };
+  li.appendChild(btnRemover);
+
+  listaAvisos.appendChild(li);
+}
+
+function salvarAvisos() {
+  let todos = [];
+  document.querySelectorAll("#listaAvisos li").forEach(li => {
+    todos.push(li.firstChild.textContent);
+  });
+  localStorage.setItem("avisos", JSON.stringify(todos));
+}
+
+// --- Função Editar (para tarefas e avisos) ---
+function editarItem(li, tipo) {
+  let textoAtual = li.firstChild.textContent;
+  let novoTexto = prompt("Edite o texto:", textoAtual);
+  if (novoTexto && novoTexto.trim() !== "") {
+    li.firstChild.textContent = novoTexto.trim();
+    if (tipo === "tarefa") salvarTarefas();
+    if (tipo === "aviso") salvarAvisos();
+  }
+}
+
+// --- Aulas da semana ---
+const horario = {
+  "Segunda": ["Matemática", "Português", "História", "Inglês"],
+  "Terça": ["Física", "Química", "Biologia", "Geografia"],
+  "Quarta": ["Matemática", "Português", "Ed. Física", "Sociologia"],
+  "Quinta": ["Química", "História", "Artes", "Inglês"],
+  "Sexta": ["Matemática", "Física", "Biologia", "Filosofia"]
+};
+
+const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+const hoje = new Date().getDay();
+
+const divHorario = document.getElementById("horario");
+for (let dia in horario) {
+  let div = document.createElement("div");
+  div.innerHTML = `<h3>${dia}</h3><p>${horario[dia].join("<br>")}</p>`;
+  if (dias[hoje] === dia) div.classList.add("hoje");
+  divHorario.appendChild(div);
+}
+
+// --- Carregar dados salvos ---
+window.onload = () => {
+  // tarefas
+  const salvas = JSON.parse(localStorage.getItem("tarefas")) || [];
+  salvas.forEach(tarefa => criarTarefa(tarefa.texto, tarefa.concluida));
+
+  // avisos
+  const avisosSalvos = JSON.parse(localStorage.getItem("avisos")) || [];
+  avisosSalvos.forEach(aviso => criarAviso(aviso));
+};
