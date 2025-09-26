@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agenda Escolar 2º Ano</title>
+  <title>Agenda Escolar - 2º Ano</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>📚 Agenda Escolar - 2º Ano</h1>
-    <p>Organize suas tarefas e veja suas aulas da semana</p>
+    <h1>📘 Agenda Escolar</h1>
+    <p>Organize suas tarefas, avisos e veja suas aulas do 2º ano</p>
   </header>
 
   <main>
@@ -25,10 +25,20 @@
       <ul id="tarefasConcluidas"></ul>
     </section>
 
+    <!-- Avisos -->
+    <section class="avisos">
+      <h2>📢 Avisos Rápidos</h2>
+      <div class="input-aviso">
+        <input type="text" id="novoAviso" placeholder="Escreva um aviso...">
+        <button onclick="adicionarAviso()">Adicionar</button>
+      </div>
+      <ul id="listaAvisos"></ul>
+    </section>
+
     <!-- Aulas da semana -->
     <section class="aulas">
-      <h2>📅 Aulas da Semana</h2>
-      <div class="grade" id="gradeAulas"></div>
+      <h2>📅 Horário de Aulas</h2>
+      <div id="horario"></div>
     </section>
   </main>
 
