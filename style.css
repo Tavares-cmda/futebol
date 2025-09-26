@@ -1,104 +1,66 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to bottom, #00b300, #99ff99);
-    color: #003300;
-    text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #0077b6, #00b4d8);
+  color: #fff;
+  text-align: center;
 }
 
-header, footer {
-    background-color: #004d00;
-    color: #fff;
-    padding: 20px;
+header {
+  padding: 20px;
+  background: #023e8a;
 }
 
-h1, h2 {
-    margin: 10px 0;
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
 }
 
-.intro {
-    margin: 20px;
-    font-size: 18px;
+section {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-.intro-img {
-    max-width: 90%;
-    height: auto;
-    border-radius: 15px;
-    margin-top: 10px;
-    box-shadow: 0 0 10px #000;
-}
-
-.acoes, .jogo {
-    margin: 20px auto;
-    max-width: 600px;
-    padding: 20px;
-    background-color: rgba(0,0,0,0.1);
-    border-radius: 15px;
+input {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  width: 60%;
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    background-color: #006600;
-    color: #fff;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
-    margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 5px;
+  background: #03045e;
+  color: white;
+  cursor: pointer;
 }
 
 button:hover {
-    transform: scale(1.1);
-    background-color: #009900;
+  background: #0077b6;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 20px;
+  list-style: none;
+  padding: 0;
 }
 
 li {
-    margin: 10px 0;
-    font-size: 16px;
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 8px;
-    border-radius: 8px;
+  background: rgba(255,255,255,0.2);
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 5px;
 }
 
-/* Cenário do jogo */
-.cenario {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    background-color: #87ceeb;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    overflow: hidden;
+footer {
+  background: #023e8a;
+  padding: 10px;
+  margin-top: 20px;
 }
-
-.lixeira {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
-    background-color: #333;
-    border-radius: 15px;
-    border: 2px solid #000;
-}
-
-/* Lixo */
-.lixo {
-    width: 40px;
-    height: 40px;
-    background-color: #ff0000;
-    position: absolute;
-    border-radius: 5px;
-    cursor: grab;
-}
-
