@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contra a Poluição - Mini Jogo</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda Escolar</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-    <h1>Projeto: Contra a Poluição 🌱</h1>
-</header>
+  <header>
+    <h1>📚 Agenda Escolar</h1>
+    <p>Organize suas tarefas e aulas do dia</p>
+  </header>
 
-<main>
-    <section class="intro">
-        <p>A poluição prejudica nosso planeta. Cada ação conta! Aprenda e jogue para ajudar a limpar a Terra.</p>
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Poluição ambiental" class="intro-img">
+  <main>
+    <!-- Tarefas -->
+    <section class="tarefas">
+      <h2>✅ Minhas Tarefas</h2>
+      <div class="input-tarefa">
+        <input type="text" id="novaTarefa" placeholder="Digite uma tarefa...">
+        <button onclick="adicionarTarefa()">Adicionar</button>
+      </div>
+      <ul id="listaTarefas"></ul>
     </section>
 
-    <section class="acoes">
-        <button id="nova-acao">Mostrar Dica 🌍</button>
-        <ul id="lista-acoes"></ul>
+    <!-- Aulas do dia -->
+    <section class="aulas">
+      <h2>📅 Aulas de Hoje</h2>
+      <p id="diaSemana"></p>
+      <ul id="listaAulas"></ul>
     </section>
+  </main>
 
-    <section class="jogo">
-        <h2>Jogue o lixo na lixeira ♻️</h2>
-        <p>Pontos: <span id="pontuacao">0</span></p>
-        <div class="cenario">
-            <div class="lixeira" id="lixeira"></div>
-        </div>
-        <button id="gerar-lixo">Gerar Lixo 🗑️</button>
-    </section>
-</main>
+  <footer>
+    <p>Feito por Pedro Henrique 💻</p>
+  </footer>
 
-<footer>
-    <p>Projeto educativo - GitHub Pages</p>
-</footer>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
