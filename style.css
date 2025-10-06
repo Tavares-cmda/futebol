@@ -1,186 +1,113 @@
-body {
-  font-family: Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
   margin: 0;
   padding: 0;
-  background: #f4f7f9;
-  color: #333;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #00b4d8, #0077b6, #03045e);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff;
 }
 
 header {
-  background: #0044cc;
-  color: white;
-  padding: 20px;
   text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+header h1 {
+  font-size: 1.8rem;
 }
 
 main {
-  max-width: 800px;
+  max-width: 600px;
   margin: 20px auto;
-  padding: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
 }
 
-section {
-  background: white;
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-}
-
-/* Tarefas */
-.input-tarefa {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.input-tarefa input {
-  padding: 10px;
-  border: 2px solid #0044cc;
-  border-radius: 8px;
-  width: 70%;
-}
-
-.input-tarefa button {
-  padding: 10px 14px;
-  border: none;
-  border-radius: 8px;
-  margin-left: 5px;
-  background: #0044cc;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.input-tarefa button:hover {
-  background: #002a80;
-}
-
-#listaTarefas li, #tarefasConcluidas li {
-  background: #e6f0ff;
-  border: 1px solid #b3d1ff;
-  margin: 5px 0;
-  padding: 8px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#tarefasConcluidas li {
-  background: #d4edda;
-  border: 1px solid #a3cfbb;
-}
-
-/* Avisos */
-.avisos {
-  background: #fff3cd;
-  border-left: 6px solid #ffc107;
-}
-
-.avisos h2 {
-  color: #856404;
-}
-
-.input-aviso {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.input-aviso input {
-  padding: 10px;
-  border: 2px solid #ffc107;
-  border-radius: 8px;
-  width: 70%;
-}
-
-.input-aviso button {
-  padding: 10px 14px;
-  border: none;
-  border-radius: 8px;
-  margin-left: 5px;
-  background: #ffc107;
-  color: #333;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.input-aviso button:hover {
-  background: #ffca2c;
-}
-
-#listaAvisos li {
-  background: #fff8e1;
-  border: 1px solid #ffe58f;
-  margin: 5px 0;
-  padding: 8px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Botões dentro das listas */
-li button {
-  margin-left: 6px;
-  padding: 4px 8px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-/* Editar */
-li button.editar {
-  background: #17a2b8;
-  color: white;
-}
-li button.editar:hover {
-  background: #117a8b;
-}
-
-/* Remover */
-li button.remover {
-  background: #dc3545;
-  color: white;
-}
-li button.remover:hover {
-  background: #a71d2a;
-}
-
-/* Concluir */
-li button.concluir {
-  background: #28a745;
-  color: white;
-}
-li button.concluir:hover {
-  background: #1e7e34;
-}
-
-/* Aulas */
-#horario {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+h2 {
+  color: #fff;
+  margin-bottom: 15px;
   text-align: center;
 }
 
-#horario div {
-  background: #f1f1f1;
-  padding: 10px;
-  border-radius: 8px;
+input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
 }
 
-#horario .hoje {
-  background: #0044cc;
+#btnAdicionar {
+  background: linear-gradient(135deg, #0096c7, #00b4d8);
   color: white;
-  font-weight: bold;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#btnAdicionar:hover {
+  background: linear-gradient(135deg, #00b4d8, #48cae4);
+  transform: scale(1.05);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+li:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+li button {
+  background: #ff4d4d;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+li button:hover {
+  background: #ff1a1a;
+  transform: scale(1.1);
 }
 
 footer {
-  background: #0044cc;
-  color: white;
   text-align: center;
-  padding: 10px;
-}
+  padding: 15px;
+  background: rgba
