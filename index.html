@@ -1,49 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agenda Escolar - 2º Ano</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marcar Jogo ⚽</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>📘 Agenda Escolar</h1>
-    <p>Organize suas tarefas, avisos e veja suas aulas do 2º ano</p>
+    <h1>⚽ Marcar Jogo com os Amigos</h1>
   </header>
 
   <main>
-    <!-- Tarefas -->
-    <section class="tarefas">
-      <h2>✅ Minhas Tarefas</h2>
-      <div class="input-tarefa">
-        <input type="text" id="novaTarefa" placeholder="Digite uma tarefa...">
-        <button onclick="adicionarTarefa()">Adicionar</button>
-      </div>
-      <ul id="listaTarefas"></ul>
-      <h3>✔ Tarefas Concluídas</h3>
-      <ul id="tarefasConcluidas"></ul>
+    <section class="formulario">
+      <h2>📅 Agendar Novo Jogo</h2>
+      <input type="text" id="campo" placeholder="Campo ou local do jogo" />
+      <input type="date" id="data" />
+      <input type="time" id="hora" />
+      <button id="btnAdicionar">Adicionar Jogo</button>
     </section>
 
-    <!-- Avisos -->
-    <section class="avisos">
-      <h2>📢 Avisos Rápidos</h2>
-      <div class="input-aviso">
-        <input type="text" id="novoAviso" placeholder="Escreva um aviso...">
-        <button onclick="adicionarAviso()">Adicionar</button>
-      </div>
-      <ul id="listaAvisos"></ul>
-    </section>
-
-    <!-- Aulas da semana -->
-    <section class="aulas">
-      <h2>📅 Horário de Aulas</h2>
-      <div id="horario"></div>
+    <section class="lista">
+      <h2>Jogos Marcados</h2>
+      <ul id="listaJogos"></ul>
     </section>
   </main>
 
   <footer>
-    <p>Feito por Pedro Henrique 💻 | GitHub Pages</p>
+    <p>Feito por <strong>Pedro Henrique ⚽</strong></p>
   </footer>
 
   <script src="script.js"></script>
