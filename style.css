@@ -10,25 +10,34 @@ body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #00b4d8, #0077b6, #03045e);
   min-height: 100vh;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: #fff;
 }
 
 header {
-  text-align: center;
-  padding: 20px;
   background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  text-align: center;
   backdrop-filter: blur(5px);
 }
 
-header h1 {
-  font-size: 1.8rem;
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 main {
-  max-width: 600px;
+  max-width: 700px;
   margin: 20px auto;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
@@ -37,37 +46,40 @@ main {
   backdrop-filter: blur(10px);
 }
 
-h2 {
-  color: #fff;
-  margin-bottom: 15px;
-  text-align: center;
+.pagina {
+  display: none;
+  animation: aparecer 0.5s ease forwards;
 }
 
-input {
+.pagina.ativa {
   display: block;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+input, button {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
   margin: 8px 0;
-  border-radius: 10px;
-  border: none;
-  outline: none;
   font-size: 16px;
 }
 
-#btnAdicionar {
+button {
   background: linear-gradient(135deg, #0096c7, #00b4d8);
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 16px;
+  color: #fff;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  transition: 0.3s;
 }
 
-#btnAdicionar:hover {
-  background: linear-gradient(135deg, #00b4d8, #48cae4);
+button:hover {
   transform: scale(1.05);
+  background: linear-gradient(135deg, #00b4d8, #48cae4);
 }
 
 ul {
@@ -77,37 +89,22 @@ ul {
 
 li {
   background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  padding: 12px;
-  border-radius: 10px;
-  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 5px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease;
-}
-
-li:hover {
-  transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.25);
 }
 
 li button {
   background: #ff4d4d;
-  border: none;
-  border-radius: 8px;
-  color: white;
-  padding: 6px 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-li button:hover {
-  background: #ff1a1a;
-  transform: scale(1.1);
+  padding: 5px 10px;
 }
 
 footer {
+  background: rgba(0, 0, 0, 0.3);
   text-align: center;
   padding: 15px;
-  background: rgba
+  font-size: 14px;
+}
