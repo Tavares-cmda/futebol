@@ -1,35 +1,119 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marcar Jogo ⚽</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚽ Marcar Jogo</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>⚽ Marcar Jogo com os Amigos</h1>
+    <nav>
+      <a href="#" onclick="mostrarPagina('inicio')">Início</a>
+      <a href="#" onclick="mostrarPagina('agendar')">Agendar</a>
+      <a href="#" onclick="mostrarPagina('lista')">Jogos</a>
+      <a href="#" onclick="mostrarPagina('sobre')">Sobre</a>
+    </nav>
   </header>
 
   <main>
-    <section class="formulario">
+    <!-- Página inicial -->
+    <section id="inicio" class="pagina ativa">
+      <h2>Bem-vindo!</h2>
+      <p>Organize seus jogos de futebol de um jeito simples e rápido.</p>
+      <button class="botao" onclick="mostrarPagina('agendar')">Começar</button>
+    </section>
+
+    <!-- Página de agendar -->
+    <section id="agendar" class="pagina">
       <h2>📅 Agendar Novo Jogo</h2>
       <input type="text" id="campo" placeholder="Campo ou local do jogo" />
       <input type="date" id="data" />
       <input type="time" id="hora" />
-      <button id="btnAdicionar">Adicionar Jogo</button>
+      <button id="btnAdicionar">Salvar Jogo</button>
     </section>
 
-    <section class="lista">
-      <h2>Jogos Marcados</h2>
+    <!-- Página de lista -->
+    <section id="lista" class="pagina">
+      <h2>📋 Jogos Marcados</h2>
       <ul id="listaJogos"></ul>
+    </section>
+
+    <!-- Página sobre -->
+    <section id="sobre" class="pagina">
+      <h2>ℹ️ Sobre o Site</h2>
+      <p>Este site foi criado para ajudar você a marcar partidas de futebol com os amigos.</p>
+      <ul>
+        <li>Adicionar local, data e hora;</li>
+        <li>Visualizar e remover jogos;</li>
+        <li>Interface simples e moderna.</li>
+      </ul>
+      <p>Feito com ❤️ por <strong>Pedro Henrique</strong> usando HTML, CSS e JavaScript.</p>
     </section>
   </main>
 
   <footer>
-    <p>Feito por <strong>Pedro Henrique ⚽</strong></p>
+    <p>⚽ Site criado por Pedro Henrique - 2025</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // --- Troca de páginas sem recarregar ---
+    function mostrarPagina(id) {
+      document.querySelectorAll('.pagina').forEach(sec => sec.classList.remove('ativa'));
+      document.getElementById(id).classList.add('ativa');
+    }
+
+    // --- Salvar e mostrar jogos ---
+    const campoInput = document.getElementById("campo");
+    const dataInput = document.getElementById("data");
+    const horaInput = document.getElementById("hora");
+    const btnAdicionar = document.getElementById("btnAdicionar");
+    const listaJogos = document.getElementById("listaJogos");
+
+    function carregarJogos() {
+      const jogos = JSON.parse(localStorage.getItem("jogos")) || [];
+      listaJogos.innerHTML = "";
+      jogos.forEach((jogo, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span>${jogo.campo} - ${jogo.data} às ${jogo.hora}</span>
+          <button onclick="removerJogo(${index})">X</button>
+        `;
+        listaJogos.appendChild(li);
+      });
+    }
+
+    btnAdicionar.addEventListener("click", () => {
+      const campo = campoInput.value.trim();
+      const data = dataInput.value;
+      const hora = horaInput.value;
+
+      if (!campo || !data || !hora) {
+        alert("Preencha todos os campos!");
+        return;
+      }
+
+      const novoJogo = { campo, data, hora };
+      const jogos = JSON.parse(localStorage.getItem("jogos")) || [];
+      jogos.push(novoJogo);
+      localStorage.setItem("jogos", JSON.stringify(jogos));
+
+      campoInput.value = "";
+      dataInput.value = "";
+      horaInput.value = "";
+      carregarJogos();
+      mostrarPagina('lista');
+    });
+
+    function removerJogo(index) {
+      const jogos = JSON.parse(localStorage.getItem("jogos")) || [];
+      jogos.splice(index, 1);
+      localStorage.setItem("jogos", JSON.stringify(jogos));
+      carregarJogos();
+    }
+
+    window.onload = carregarJogos;
+  </script>
 </body>
 </html>
