@@ -1,83 +1,208 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚽ Marcar Jogo</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agendador de Jogos ⚽</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #00b4d8, #0077b6, #03045e);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 20px auto;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      color: #fff;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #0096c7, #00b4d8);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 5px;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #00b4d8, #48cae4);
+      transform: scale(1.05);
+    }
+
+    .campos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      margin: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    li:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    li button {
+      background: #ff4d4d;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    li button:hover {
+      background: #ff1a1a;
+      transform: scale(1.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>⚽ Marcar Jogo com os Amigos</h1>
-    <nav>
-      <a href="#" onclick="mostrarPagina('inicio')">Início</a>
-      <a href="#" onclick="mostrarPagina('agendar')">Agendar</a>
-      <a href="#" onclick="mostrarPagina('lista')">Jogos</a>
-      <a href="#" onclick="mostrarPagina('sobre')">Sobre</a>
-    </nav>
+    <h1 id="titulo">⚽ Bem-vindo ao Agendador de Jogos</h1>
   </header>
 
   <main>
-    <!-- Página inicial -->
-    <section id="inicio" class="pagina ativa">
-      <h2>Bem-vindo!</h2>
-      <p>Organize seus jogos de futebol de um jeito simples e rápido.</p>
-      <button class="botao" onclick="mostrarPagina('agendar')">Começar</button>
+    <!-- Tela de Seleção de Campo -->
+    <section id="telaCampos">
+      <h2>Escolha o Campo</h2>
+      <p>Selecione um campo para agendar e ver os jogos marcados:</p>
+      <div class="campos">
+        <button onclick="abrirCampo(1)">Campo 1</button>
+        <button onclick="abrirCampo(2)">Campo 2</button>
+        <button onclick="abrirCampo(3)">Campo 3</button>
+        <button onclick="abrirCampo(4)">Campo 4</button>
+        <button onclick="abrirCampo(5)">Campo 5</button>
+      </div>
     </section>
 
-    <!-- Página de agendar -->
-    <section id="agendar" class="pagina">
-      <h2>📅 Agendar Novo Jogo</h2>
-      <input type="text" id="campo" placeholder="Campo ou local do jogo" />
+    <!-- Tela de Jogos -->
+    <section id="telaJogos" class="hidden">
+      <h2 id="tituloCampo">⚽ Campo</h2>
       <input type="date" id="data" />
       <input type="time" id="hora" />
-      <button id="btnAdicionar">Salvar Jogo</button>
-    </section>
+      <button id="btnAdicionar">Adicionar Jogo</button>
+      <button onclick="voltar()">⬅ Voltar</button>
 
-    <!-- Página de lista -->
-    <section id="lista" class="pagina">
-      <h2>📋 Jogos Marcados</h2>
+      <h2>Jogos Marcados</h2>
       <ul id="listaJogos"></ul>
-    </section>
-
-    <!-- Página sobre -->
-    <section id="sobre" class="pagina">
-      <h2>ℹ️ Sobre o Site</h2>
-      <p>Este site foi criado para ajudar você a marcar partidas de futebol com os amigos.</p>
-      <ul>
-        <li>Adicionar local, data e hora;</li>
-        <li>Visualizar e remover jogos;</li>
-        <li>Interface simples e moderna.</li>
-      </ul>
-      <p>Feito com ❤️ por <strong>Pedro Henrique</strong> usando HTML, CSS e JavaScript.</p>
     </section>
   </main>
 
   <footer>
-    <p>⚽ Site criado por Pedro Henrique - 2025</p>
+    <p>Feito por <strong>Pedro Henrique ⚽</strong></p>
   </footer>
 
   <script>
-    // --- Troca de páginas sem recarregar ---
-    function mostrarPagina(id) {
-      document.querySelectorAll('.pagina').forEach(sec => sec.classList.remove('ativa'));
-      document.getElementById(id).classList.add('ativa');
+    let campoSelecionado = null;
+
+    function abrirCampo(numero) {
+      campoSelecionado = numero;
+      document.getElementById("tituloCampo").textContent = `⚽ Campo ${numero}`;
+      document.getElementById("telaCampos").classList.add("hidden");
+      document.getElementById("telaJogos").classList.remove("hidden");
+      carregarJogos();
     }
 
-    // --- Salvar e mostrar jogos ---
-    const campoInput = document.getElementById("campo");
+    function voltar() {
+      document.getElementById("telaJogos").classList.add("hidden");
+      document.getElementById("telaCampos").classList.remove("hidden");
+      document.getElementById("listaJogos").innerHTML = "";
+      campoSelecionado = null;
+    }
+
+    const listaJogos = document.getElementById("listaJogos");
     const dataInput = document.getElementById("data");
     const horaInput = document.getElementById("hora");
     const btnAdicionar = document.getElementById("btnAdicionar");
-    const listaJogos = document.getElementById("listaJogos");
 
     function carregarJogos() {
-      const jogos = JSON.parse(localStorage.getItem("jogos")) || [];
+      const jogos = JSON.parse(localStorage.getItem(`jogosCampo${campoSelecionado}`)) || [];
       listaJogos.innerHTML = "";
       jogos.forEach((jogo, index) => {
         const li = document.createElement("li");
         li.innerHTML = `
-          <span>${jogo.campo} - ${jogo.data} às ${jogo.hora}</span>
+          <span>${jogo.data} às ${jogo.hora}</span>
           <button onclick="removerJogo(${index})">X</button>
         `;
         listaJogos.appendChild(li);
@@ -85,35 +210,30 @@
     }
 
     btnAdicionar.addEventListener("click", () => {
-      const campo = campoInput.value.trim();
       const data = dataInput.value;
       const hora = horaInput.value;
 
-      if (!campo || !data || !hora) {
+      if (!data || !hora || !campoSelecionado) {
         alert("Preencha todos os campos!");
         return;
       }
 
-      const novoJogo = { campo, data, hora };
-      const jogos = JSON.parse(localStorage.getItem("jogos")) || [];
+      const novoJogo = { data, hora };
+      const jogos = JSON.parse(localStorage.getItem(`jogosCampo${campoSelecionado}`)) || [];
       jogos.push(novoJogo);
-      localStorage.setItem("jogos", JSON.stringify(jogos));
+      localStorage.setItem(`jogosCampo${campoSelecionado}`, JSON.stringify(jogos));
 
-      campoInput.value = "";
       dataInput.value = "";
       horaInput.value = "";
       carregarJogos();
-      mostrarPagina('lista');
     });
 
     function removerJogo(index) {
-      const jogos = JSON.parse(localStorage.getItem("jogos")) || [];
+      const jogos = JSON.parse(localStorage.getItem(`jogosCampo${campoSelecionado}`)) || [];
       jogos.splice(index, 1);
-      localStorage.setItem("jogos", JSON.stringify(jogos));
+      localStorage.setItem(`jogosCampo${campoSelecionado}`, JSON.stringify(jogos));
       carregarJogos();
     }
-
-    window.onload = carregarJogos;
   </script>
 </body>
 </html>
