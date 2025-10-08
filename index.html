@@ -1,51 +1,166 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agendamento de Jogos</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: #fff;
+    }
+
+    header {
+      background-color: rgba(0, 100, 0, 0.9);
+      text-align: center;
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    main {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: rgba(0, 60, 0, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.6);
+    }
+
+    h2 {
+      text-align: center;
+      color: #aaffaa;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    select, input[type="date"], input[type="time"], button {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    select, input {
+      background-color: #e8ffe8;
+      color: #003300;
+    }
+
+    button {
+      background-color: #00cc00;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #009900;
+    }
+
+    .lista {
+      margin-top: 30px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .item {
+      background-color: rgba(0, 255, 0, 0.1);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-left: 5px solid #00cc00;
+    }
+
+    footer {
+      background-color: rgba(0, 100, 0, 0.9);
+      text-align: center;
+      color: #cfc;
+      padding: 15px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>⚽ Agendamento de Jogos</h1>
-    <nav>
-      <a href="index.html" class="btn-voltar">🏠 Voltar</a>
-    </nav>
-  </header>
+  <header>🏟️ Agendamento de Jogos</header>
 
   <main>
-    <section class="form-section">
-      <h2>Marcar Novo Jogo</h2>
-      <form id="gameForm">
-        <div class="inputs">
-          <input type="text" id="timeA" placeholder="Time A" required />
-          <input type="text" id="timeB" placeholder="Time B" required />
-          <input type="datetime-local" id="dataJogo" required />
-          <select id="campo" required>
-            <option value="">Selecione o Campo</option>
-            <option value="Campo 1">Campo 1</option>
-            <option value="Campo 2">Campo 2</option>
-            <option value="Campo 3">Campo 3</option>
-            <option value="Campo 4">Campo 4</option>
-            <option value="Campo 5">Campo 5</option>
-          </select>
-        </div>
-        <button type="submit" class="btn-add">Adicionar Jogo</button>
-      </form>
-    </section>
+    <h2>Agende seu horário</h2>
+    <form id="formAgendamento">
+      <label for="campo">Selecione o campo:</label>
+      <select id="campo" required>
+        <option value="">Escolha o campo</option>
+        <option value="1">Campo 1</option>
+        <option value="2">Campo 2</option>
+        <option value="3">Campo 3</option>
+        <option value="4">Campo 4</option>
+        <option value="5">Campo 5</option>
+      </select>
 
-    <section class="list-section">
-      <h2>Jogos Agendados</h2>
-      <ul id="listaJogos"></ul>
-      <button id="btnLimpar" class="btn-clear">Limpar Todos</button>
-    </section>
+      <label for="data">Data:</label>
+      <input type="date" id="data" required>
+
+      <label for="hora">Hora:</label>
+      <input type="time" id="hora" required>
+
+      <button type="submit">Agendar</button>
+    </form>
+
+    <div class="lista" id="listaAgendamentos">
+      <h3>📅 Agendamentos</h3>
+    </div>
   </main>
 
-  <footer>
-    <p>© 2025 - Sistema de Agendamento de Jogos | Pedro Henrique Tavares ⚽</p>
-  </footer>
+  <footer>⚽ Sistema de Agendamento - Pedro Henrique Tavares</footer>
 
-  <script src="script.js"></script>
+  <script>
+    const form = document.getElementById("formAgendamento");
+    const lista = document.getElementById("listaAgendamentos");
+    let agendamentos = JSON.parse(localStorage.getItem("agendamentos")) || [];
+
+    function atualizarLista() {
+      lista.innerHTML = "<h3>📅 Agendamentos</h3>";
+      agendamentos.forEach(a => {
+        const item = document.createElement("div");
+        item.className = "item";
+        item.innerHTML = `<strong>Campo:</strong> ${a.campo} | <strong>Data:</strong> ${a.data} | <strong>Hora:</strong> ${a.hora}`;
+        lista.appendChild(item);
+      });
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const campo = document.getElementById("campo").value;
+      const data = document.getElementById("data").value;
+      const hora = document.getElementById("hora").value;
+
+      // Impede mesmo campo + data + hora
+      const conflito = agendamentos.some(a => a.campo === campo && a.data === data && a.hora === hora);
+      if (conflito) {
+        alert("⚠️ Esse campo já está agendado nesse horário!");
+        return;
+      }
+
+      agendamentos.push({ campo, data, hora });
+      localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
+      atualizarLista();
+      form.reset();
+    });
+
+    atualizarLista();
+  </script>
 </body>
 </html>
