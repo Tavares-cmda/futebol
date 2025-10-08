@@ -6,13 +6,12 @@
   <title>Agendamento de Jogos</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background-image: url('https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?auto=format&fit=crop&w=1470&q=80');
+      font-family: Arial, sans-serif;
+      background-image: url('69156df4-dc4f-46b1-b74b-ea8b4083234e.png'); /* imagem de fundo */
       background-size: cover;
-      background-attachment: fixed;
       background-position: center;
+      background-attachment: fixed;
       color: #fff;
     }
 
@@ -22,27 +21,29 @@
       padding: 20px;
       font-size: 28px;
       font-weight: bold;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
     }
 
     main {
-      max-width: 600px;
-      margin: 50px auto;
-      background-color: rgba(0, 60, 0, 0.8);
+      max-width: 1000px;
+      margin: 40px auto 100px auto;
+      background-color: rgba(0, 60, 0, 0.85);
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.6);
+      box-shadow: 0 4px 25px rgba(0,0,0,0.6);
     }
 
-    h2 {
+    h2, h3 {
       text-align: center;
       color: #aaffaa;
     }
 
     form {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 15px;
+      margin-bottom: 25px;
     }
 
     select, input[type="date"], input[type="time"], button {
@@ -69,38 +70,76 @@
       background-color: #009900;
     }
 
-    .lista {
-      margin-top: 30px;
+    .campos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .campo-box {
       background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid #00ff66;
+      border-radius: 12px;
       padding: 15px;
-      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,255,100,0.4);
+      transition: transform 0.2s;
+    }
+
+    .campo-box:hover {
+      transform: scale(1.05);
+    }
+
+    .campo-box h3 {
+      text-align: center;
+      background-color: rgba(0,255,0,0.2);
+      border-radius: 8px;
+      padding: 5px;
     }
 
     .item {
-      background-color: rgba(0, 255, 0, 0.1);
-      padding: 10px;
-      margin-bottom: 10px;
-      border-left: 5px solid #00cc00;
+      background-color: rgba(0,255,0,0.15);
+      margin: 5px 0;
+      padding: 8px;
+      border-left: 4px solid #00cc00;
+      border-radius: 5px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .delete-btn {
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 12px;
+      transition: 0.2s;
+    }
+
+    .delete-btn:hover {
+      background-color: #cc0000;
     }
 
     footer {
-      background-color: rgba(0, 100, 0, 0.9);
+      background-color: rgba(0,100,0,0.9);
       text-align: center;
       color: #cfc;
       padding: 15px;
       position: fixed;
-      width: 100%;
       bottom: 0;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <header>🏟️ Agendamento de Jogos</header>
+  <header>🏟️ Sistema de Agendamento de Jogos</header>
 
   <main>
-    <h2>Agende seu horário</h2>
+    <h2>Agende um novo jogo</h2>
     <form id="formAgendamento">
-      <label for="campo">Selecione o campo:</label>
       <select id="campo" required>
         <option value="">Escolha o campo</option>
         <option value="1">Campo 1</option>
@@ -110,34 +149,70 @@
         <option value="5">Campo 5</option>
       </select>
 
-      <label for="data">Data:</label>
       <input type="date" id="data" required>
-
-      <label for="hora">Hora:</label>
       <input type="time" id="hora" required>
-
       <button type="submit">Agendar</button>
     </form>
 
-    <div class="lista" id="listaAgendamentos">
-      <h3>📅 Agendamentos</h3>
+    <div class="campos" id="camposContainer">
+      <div class="campo-box" id="campo1">
+        <h3>Campo 1</h3>
+        <div class="lista"></div>
+      </div>
+      <div class="campo-box" id="campo2">
+        <h3>Campo 2</h3>
+        <div class="lista"></div>
+      </div>
+      <div class="campo-box" id="campo3">
+        <h3>Campo 3</h3>
+        <div class="lista"></div>
+      </div>
+      <div class="campo-box" id="campo4">
+        <h3>Campo 4</h3>
+        <div class="lista"></div>
+      </div>
+      <div class="campo-box" id="campo5">
+        <h3>Campo 5</h3>
+        <div class="lista"></div>
+      </div>
     </div>
   </main>
 
-  <footer>⚽ Sistema de Agendamento - Pedro Henrique Tavares</footer>
+  <footer>⚽ Sistema criado por Pedro Henrique Tavares</footer>
 
   <script>
     const form = document.getElementById("formAgendamento");
-    const lista = document.getElementById("listaAgendamentos");
     let agendamentos = JSON.parse(localStorage.getItem("agendamentos")) || [];
 
-    function atualizarLista() {
-      lista.innerHTML = "<h3>📅 Agendamentos</h3>";
-      agendamentos.forEach(a => {
-        const item = document.createElement("div");
-        item.className = "item";
-        item.innerHTML = `<strong>Campo:</strong> ${a.campo} | <strong>Data:</strong> ${a.data} | <strong>Hora:</strong> ${a.hora}`;
-        lista.appendChild(item);
+    function atualizarCampos() {
+      for (let i = 1; i <= 5; i++) {
+        const lista = document.querySelector(`#campo${i} .lista`);
+        lista.innerHTML = "";
+        const campoAgendamentos = agendamentos.filter(a => a.campo == i);
+        if (campoAgendamentos.length === 0) {
+          lista.innerHTML = "<p style='text-align:center; opacity:0.7;'>Sem jogos agendados</p>";
+        } else {
+          campoAgendamentos.forEach((a, index) => {
+            const item = document.createElement("div");
+            item.className = "item";
+            item.innerHTML = `
+              <span><strong>Data:</strong> ${a.data} | <strong>Hora:</strong> ${a.hora}</span>
+              <button class="delete-btn" data-campo="${a.campo}" data-data="${a.data}" data-hora="${a.hora}">🗑️</button>
+            `;
+            lista.appendChild(item);
+          });
+        }
+      }
+
+      document.querySelectorAll(".delete-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const campo = e.target.getAttribute("data-campo");
+          const data = e.target.getAttribute("data-data");
+          const hora = e.target.getAttribute("data-hora");
+          agendamentos = agendamentos.filter(a => !(a.campo === campo && a.data === data && a.hora === hora));
+          localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
+          atualizarCampos();
+        });
       });
     }
 
@@ -147,7 +222,6 @@
       const data = document.getElementById("data").value;
       const hora = document.getElementById("hora").value;
 
-      // Impede mesmo campo + data + hora
       const conflito = agendamentos.some(a => a.campo === campo && a.data === data && a.hora === hora);
       if (conflito) {
         alert("⚠️ Esse campo já está agendado nesse horário!");
@@ -156,11 +230,11 @@
 
       agendamentos.push({ campo, data, hora });
       localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
-      atualizarLista();
+      atualizarCampos();
       form.reset();
     });
 
-    atualizarLista();
+    atualizarCampos();
   </script>
 </body>
 </html>
